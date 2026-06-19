@@ -8,9 +8,9 @@ export async function POST(request: Request) {
     const body: CreatePageInput = await request.json();
 
     // Validate required fields
-    if (!body.productName || !body.tagline || !body.description) {
+    if (!body.productName) {
       return NextResponse.json(
-        { error: "Missing required fields: productName, tagline, description" },
+        { error: "Missing required field: productName" },
         { status: 400 }
       );
     }
@@ -23,9 +23,9 @@ export async function POST(request: Request) {
       .insert({
         slug,
         product_name: body.productName,
-        tagline: body.tagline,
-        description: body.description,
-        color_theme: body.colorTheme || "indigo",
+        tagline: body.tagline || null,
+        description: body.description || null,
+        primary_color: body.colorTheme || "indigo",
         cta_text: body.ctaText || "Get Started",
         cta_url: body.ctaUrl || "#",
         features: body.features || [],

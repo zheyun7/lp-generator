@@ -27,7 +27,7 @@ async function getPageData(slug: string): Promise<PageData | null> {
       productName: data.product_name,
       tagline: data.tagline,
       description: data.description,
-      colorTheme: data.color_theme || "indigo",
+      colorTheme: data.primary_color || "indigo",
       ctaText: data.cta_text || "Get Started",
       ctaUrl: data.cta_url || "#",
       features: data.features || [],
