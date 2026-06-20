@@ -20,7 +20,7 @@ import {
   MessageCircle,
   ChevronLeft,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import type { Feature, PricingPlan, FAQItem } from "@/lib/types";
 import type { ColorTheme } from "@/lib/colors";
 import { getThemeStyles, colorThemes } from "@/lib/colors";
@@ -216,27 +216,48 @@ export default function Home() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        {/* Confetti dots */}
+        {/* Confetti dots — fixed positions to avoid Math.random() hydration */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {[
+            { left: "12%", y: 350, dur: 1.7, delay: 0.1 },
+            { left: "25%", y: 420, dur: 2.0, delay: 0.3 },
+            { left: "38%", y: 310, dur: 1.5, delay: 0.0 },
+            { left: "50%", y: 480, dur: 2.2, delay: 0.4 },
+            { left: "62%", y: 340, dur: 1.8, delay: 0.15 },
+            { left: "75%", y: 440, dur: 2.1, delay: 0.35 },
+            { left: "88%", y: 370, dur: 1.6, delay: 0.25 },
+            { left: "18%", y: 400, dur: 1.9, delay: 0.05 },
+            { left: "32%", y: 320, dur: 2.3, delay: 0.45 },
+            { left: "55%", y: 460, dur: 1.4, delay: 0.2 },
+            { left: "68%", y: 380, dur: 1.7, delay: 0.08 },
+            { left: "82%", y: 300, dur: 2.0, delay: 0.38 },
+            { left: "15%", y: 430, dur: 1.6, delay: 0.18 },
+            { left: "42%", y: 360, dur: 2.1, delay: 0.42 },
+            { left: "58%", y: 410, dur: 1.5, delay: 0.12 },
+            { left: "72%", y: 340, dur: 1.8, delay: 0.32 },
+            { left: "8%", y: 390, dur: 2.2, delay: 0.48 },
+            { left: "48%", y: 450, dur: 1.7, delay: 0.22 },
+            { left: "85%", y: 330, dur: 1.9, delay: 0.28 },
+            { left: "35%", y: 370, dur: 2.0, delay: 0.4 },
+          ].map((dot, i) => (
             <motion.div
               key={i}
               className="absolute h-2 w-2 rounded-full"
               style={{
                 backgroundColor:
                   Object.values(colorThemes)[i % 5].primary,
-                left: `${10 + Math.random() * 80}%`,
+                left: dot.left,
                 top: "20%",
               }}
               initial={{ y: 0, opacity: 1, scale: 1 }}
               animate={{
-                y: 300 + Math.random() * 200,
+                y: dot.y,
                 opacity: 0,
                 scale: 0,
               }}
               transition={{
-                duration: 1.5 + Math.random(),
-                delay: Math.random() * 0.5,
+                duration: dot.dur,
+                delay: dot.delay,
                 ease: "easeOut",
               }}
             />
@@ -377,10 +398,9 @@ export default function Home() {
         {...fadeIn}
         transition={{ ...fadeIn.transition, delay: 0.15 }}
       >
-        <AnimatePresence mode="wait">
-          {/* Step 1: Basic Info */}
+        {/* Step 1: Basic Info */}
           {step === 0 && (
-            <motion.div key="step1" className="space-y-6" {...fadeIn}>
+            <motion.div key="step1" className="space-y-6" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
               <div>
                 <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                   Product Name *
@@ -695,8 +715,6 @@ export default function Home() {
               )}
             </motion.div>
           )}
-        </AnimatePresence>
-
         {/* Error message */}
         {error && (
           <motion.div
