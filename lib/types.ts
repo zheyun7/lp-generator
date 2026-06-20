@@ -16,6 +16,33 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface Step {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
+export interface FooterLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+export interface SocialLink {
+  label: string;
+  href: string;
+  icon: "Twitter" | "GitHub" | "LinkedIn";
+}
+
 export interface PageData {
   id?: string;
   slug: string;

@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import type { PageData } from "@/lib/types";
+import NavBar from "@/components/landing/NavBar";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
+import HowItWorksSection from "@/components/landing/HowItWorksSection";
 import PricingSection from "@/components/landing/PricingSection";
 import FAQSection from "@/components/landing/FAQSection";
 import CTASection from "@/components/landing/CTASection";
@@ -76,6 +78,10 @@ export default async function LandingPage({
 
   return (
     <>
+      <NavBar
+        productName={page.productName}
+        colorTheme={page.colorTheme}
+      />
       <HeroSection
         productName={page.productName}
         tagline={page.tagline}
@@ -86,6 +92,10 @@ export default async function LandingPage({
       />
       <FeaturesSection
         features={page.features}
+        colorTheme={page.colorTheme}
+      />
+      <HowItWorksSection
+        steps={[]}
         colorTheme={page.colorTheme}
       />
       <PricingSection
@@ -105,7 +115,7 @@ export default async function LandingPage({
       <div className="fixed bottom-4 right-4 z-40">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/90 px-3 py-1.5 text-xs text-gray-500 shadow-sm backdrop-blur-sm transition-colors hover:text-gray-700 hover:shadow-md"
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 text-xs text-slate-500 shadow-sm backdrop-blur-sm transition-colors hover:text-slate-700 hover:shadow-md dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-400 dark:hover:text-slate-200"
         >
           Powered by Landing Page Generator
         </Link>

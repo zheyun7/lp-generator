@@ -1,4 +1,10 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { nanoid } from "nanoid";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function generateSlug(productName: string): string {
   const shortName = productName
@@ -9,8 +15,4 @@ export function generateSlug(productName: string): string {
 
   const id = nanoid(6);
   return `${shortName}-${id}`;
-}
-
-export function cn(...classes: (string | boolean | undefined | null)[]) {
-  return classes.filter(Boolean).join(" ");
 }
